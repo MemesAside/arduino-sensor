@@ -1,0 +1,34 @@
+long time;
+int distance;
+
+void setup() {
+  pinMode(6, OUTPUT);
+  pinMode(7, INPUT);
+  pinMode(8, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(6, LOW);    //resets the pulse
+  delayMicroseconds(2);
+  
+  digitalWrite(6, HIGH);   //sends the pulse
+  delayMicroseconds(10);
+  digitalWrite(6, LOW);
+
+  time = pulseIn(7, HIGH);
+  distance = (time * 0.034)/2;
+
+  Serial.println(distance);
+
+  if(distance < 60 && distance != 0){
+
+    while(true){
+      digitalWrite(8, HIGH);
+      delay(500);
+      digitalWrite(8, LOW);
+      delay(500);
+    }
+
+  }
+}
